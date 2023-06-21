@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import AdjustIcon from "@mui/icons-material/Adjust";
 
 export const usePokedex = () => {
   const [loading, setLoading] = useState(true);
@@ -13,29 +15,34 @@ export const usePokedex = () => {
     image: "",
     imageShiny: "",
     number: 0,
+    type: "",
+    typeImage: "",
   });
 
   const [error, setError] = useState(false);
 
   const checkShiny = () => {
     let image;
-    let tooltip;
+    let text;
+    let icon;
     let iconColor;
     let textColor;
 
     if (shiny) {
       image = pokemonData.imageShiny;
-      tooltip = "Change to Normal";
+      text = "Normal";
+      icon = <AdjustIcon />;
       iconColor = "primary";
       textColor = "secondary";
     } else {
       image = pokemonData.image;
-      tooltip = "Change to Shiny";
+      text = "Shiny";
+      icon = <AutoAwesomeIcon />;
       iconColor = "secondary";
       textColor = "text.primary";
     }
 
-    return { image, tooltip, iconColor, textColor };
+    return { image, text, icon, iconColor, textColor };
   };
 
   const URL = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
@@ -50,9 +57,11 @@ export const usePokedex = () => {
         setPokemonData({
           ...pokemonData,
           name: res.data.name,
-          image: res.data.sprites.other.home.front_default,
-          imageShiny: res.data.sprites.other.home.front_shiny,
+          image: res.data.sprites.front_default,
+          imageShiny: res.data.sprites.front_shiny,
           number: res.data.id,
+          type: res.data.types[0].type.name,
+          stats: res.data.stats,
         });
         setPokemon(res.data.id);
         setLoading(false);

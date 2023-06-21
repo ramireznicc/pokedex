@@ -1,4 +1,10 @@
-import { TextField, Typography, Stack, IconButton } from "@mui/material";
+import {
+  TextField,
+  Typography,
+  Stack,
+  IconButton,
+  Container,
+} from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -25,7 +31,17 @@ export const Home = () => {
   };
 
   return (
-    <>
+    <Container
+      disableGutters
+      sx={{
+        width: { xs: "90%", md: "560px" },
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
       <Stack gap="6px" alignSelf="flex-start" justifyContent="center" py="24px">
         <Typography lineHeight="4rem" letterSpacing=".2rem" variant="h1">
           Pokedex
@@ -45,6 +61,6 @@ export const Home = () => {
           <Search />
         </IconButton>
       </Stack>
-    </>
+    </Container>
   );
 };
