@@ -17,6 +17,7 @@ export const Theme = createTheme({
       primary: "#dededc",
       dark: "#434343",
     },
+    divider: "rgba(255,255,255,0.1)",
   },
   typography: {
     fontFamily: "VT323",

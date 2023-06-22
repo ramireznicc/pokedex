@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import AdjustIcon from "@mui/icons-material/Adjust";
 
 export const usePokedex = () => {
   const [loading, setLoading] = useState(true);
@@ -33,15 +31,9 @@ export const usePokedex = () => {
 
     if (shiny) {
       image = pokemonData.imageShiny;
-      text = "Normal";
-      icon = <AdjustIcon />;
-      iconColor = "primary";
       textColor = "secondary";
     } else {
       image = pokemonData.image;
-      text = "Shiny";
-      icon = <AutoAwesomeIcon />;
-      iconColor = "secondary";
       textColor = "text.primary";
     }
 

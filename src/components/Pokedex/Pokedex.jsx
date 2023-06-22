@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   IconButton,
+  Switch,
   Stack,
   LinearProgress,
   Container,
@@ -39,7 +40,7 @@ export const Pokedex = () => {
     text: "Show Info",
   });
 
-  const { image, text, icon, iconColor, textColor } = checkShiny();
+  const { image, textColor } = checkShiny();
 
   const handlePokemonData = () => {
     setShowdata(!showData);
@@ -133,17 +134,7 @@ export const Pokedex = () => {
           >
             NAME & NUMBER
           </Divider>
-          <Stack pb="16px" pt="8px">
-            {shiny ? (
-              <Typography
-                lineHeight="0px"
-                color="secondary"
-                variant="body"
-                textAlign="center"
-              >
-                - Shiny -
-              </Typography>
-            ) : null}
+          <Stack p="8px">
             <Typography
               lineHeight="62px"
               color={textColor}
@@ -161,10 +152,9 @@ export const Pokedex = () => {
             flexItem={true}
             sx={{ color: "primary" }}
           >
-            SPRITE
+            IMAGE
           </Divider>
           <Stack
-            py="16px"
             direction="row"
             alignItems="center"
             justifyContent="space-between"
@@ -185,17 +175,21 @@ export const Pokedex = () => {
               <NavigateNextIcon fontSize="large" />
             </IconButton>
           </Stack>
-          <Button
-            size="small"
-            startIcon={icon}
-            disableElevation
-            sx={{ my: "16px", borderRadius: "12px" }}
-            variant="contained"
-            onClick={handleShiny}
-            color={iconColor}
-          >
-            {text}
-          </Button>
+          <Stack direction="row" alignItems="center" pb="8px">
+            <Typography color={shiny ? "background.default" : "disabled"}>
+              Normal
+            </Typography>
+            <Switch
+              color="secondary"
+              defaultChecked={false}
+              checked={shiny}
+              onChange={handleShiny}
+            />
+            <Typography color={shiny ? "secondary" : "background.default"}>
+              Shiny
+            </Typography>
+          </Stack>
+
           {showData ? (
             // INFO
             <>
@@ -211,8 +205,8 @@ export const Pokedex = () => {
               >
                 {/* TYPES */}
                 <Box>
-                  <Typography variant="h6">
-                    {pokemonData.types.length > 1 ? "Types:" : "Type:"}
+                  <Typography textAlign="center" variant="h6">
+                    {pokemonData.types.length > 1 ? "- Types -" : "- Type -"}
                   </Typography>
                   <Stack gap="12px" width="100%" alignItems="center">
                     {pokemonData.types.map((type) => (
@@ -238,7 +232,9 @@ export const Pokedex = () => {
                 </Box>
                 {/* WEIGHT AND HEIGHT */}
                 <Box>
-                  <Typography variant="h6">Weight & Height:</Typography>
+                  <Typography textAlign="center" variant="h6">
+                    - Weight & Height -
+                  </Typography>
                   <Stack gap="12px" width="100%" alignItems="center">
                     <Card
                       sx={{
@@ -270,7 +266,9 @@ export const Pokedex = () => {
                 </Box>
                 {/* STATS */}
                 <Box>
-                  <Typography variant="h6">Stats:</Typography>
+                  <Typography textAlign="center" variant="h6">
+                    - Stats -
+                  </Typography>
                   <Stack gap="12px" width="100%" alignItems="center">
                     {pokemonData.stats.map((stat) => (
                       <Card key={stat.stat.name}>
