@@ -16,7 +16,10 @@ export const usePokedex = () => {
     imageShiny: "",
     number: 0,
     type: "",
-    typeImage: "",
+    types: [],
+    stats: [],
+    weight: 0,
+    height: 0,
   });
 
   const [error, setError] = useState(false);
@@ -60,8 +63,10 @@ export const usePokedex = () => {
           image: res.data.sprites.front_default,
           imageShiny: res.data.sprites.front_shiny,
           number: res.data.id,
-          type: res.data.types[0].type.name,
+          types: res.data.types,
           stats: res.data.stats,
+          weight: res.data.weight / 10,
+          height: res.data.height / 10,
         });
         setPokemon(res.data.id);
         setLoading(false);

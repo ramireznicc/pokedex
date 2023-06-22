@@ -18,6 +18,8 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import ReplyIcon from "@mui/icons-material/Reply";
+import HeightIcon from "@mui/icons-material/Height";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
 export const Pokedex = () => {
   const {
@@ -38,8 +40,6 @@ export const Pokedex = () => {
   });
 
   const { image, text, icon, iconColor, textColor } = checkShiny();
-
-  const typeImage = `../../../images/poke-types/${pokemonData.type}.png`;
 
   const handlePokemonData = () => {
     setShowdata(!showData);
@@ -205,35 +205,66 @@ export const Pokedex = () => {
                 gap="22px"
               >
                 <Box>
-                  {" "}
-                  <Typography variant="h6">Type:</Typography>
-                  <Card>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                      gap="6px"
-                    >
-                      <Box
-                        component="img"
-                        src={typeImage}
-                        sx={{ height: "32px", width: "32px" }}
-                      ></Box>
-                      <Typography variant="h5">
-                        {pokemonData.type.toUpperCase()}
-                      </Typography>
-                    </Stack>
-                  </Card>
+                  <Typography variant="h6">
+                    {pokemonData.types.length > 1 ? "Types:" : "Type:"}
+                  </Typography>
+                  <Stack gap="12px" width="100%" alignItems="center">
+                    {pokemonData.types.map((type) => (
+                      <Card key={type.type.name}>
+                        <Stack
+                          direction="row"
+                          alignItems="center"
+                          justifyContent="center"
+                          gap="6px"
+                        >
+                          <Box
+                            component="img"
+                            src={`../../../images/poke-types/${type.type.name}.png`}
+                            sx={{ height: "32px", width: "32px" }}
+                          ></Box>
+                          <Typography variant="h6">
+                            {type.type.name.toUpperCase()}
+                          </Typography>
+                        </Stack>
+                      </Card>
+                    ))}
+                  </Stack>
                 </Box>
+                <Box>
+                  <Typography variant="h6">Weight & Height:</Typography>
+                  <Stack gap="12px" width="100%" alignItems="center">
+                    <Card
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                      }}
+                    >
+                      <FitnessCenterIcon />
+                      <Typography variant="h6">
+                        {pokemonData.weight} kg
+                      </Typography>
+                    </Card>
+                    <Card
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                      }}
+                    >
+                      <HeightIcon />
+                      <Typography variant="h6">
+                        {pokemonData.height} mts
+                      </Typography>
+                    </Card>
+                  </Stack>
+                </Box>
+
                 <Box>
                   <Typography variant="h6">Stats:</Typography>
                   <Stack gap="12px" width="100%" alignItems="center">
                     {pokemonData.stats.map((stat) => (
-                      <Card
-                        sx={{
-                          width: "100%",
-                        }}
-                      >
+                      <Card key={stat.stat.name}>
                         <Stack justifyContent="space-between" direction="row">
                           <Typography>
                             {stat.stat.name.toUpperCase()}
