@@ -71,8 +71,10 @@ export const Pokedex = () => {
       }}
     >
       {loading ? (
+        // LOADING
         <CircularProgress color="secondary" />
       ) : error ? (
+        // ERROR
         <Stack gap="16px">
           <Button
             size="small"
@@ -90,6 +92,7 @@ export const Pokedex = () => {
           <Typography variant="h3">Pokemon not found</Typography>
         </Stack>
       ) : (
+        // BUTTONS
         <>
           <Box
             sx={{
@@ -122,6 +125,7 @@ export const Pokedex = () => {
               {dataIconText.text}
             </Button>
           </Box>
+
           <Divider
             variant="fullWidth"
             flexItem={true}
@@ -193,6 +197,7 @@ export const Pokedex = () => {
             {text}
           </Button>
           {showData ? (
+            // INFO
             <>
               <Divider variant="fullWidth" flexItem={true}>
                 INFO
@@ -204,6 +209,7 @@ export const Pokedex = () => {
                 alignItems="center"
                 gap="22px"
               >
+                {/* TYPES */}
                 <Box>
                   <Typography variant="h6">
                     {pokemonData.types.length > 1 ? "Types:" : "Type:"}
@@ -215,7 +221,7 @@ export const Pokedex = () => {
                           direction="row"
                           alignItems="center"
                           justifyContent="center"
-                          gap="6px"
+                          gap="8px"
                         >
                           <Box
                             component="img"
@@ -230,6 +236,7 @@ export const Pokedex = () => {
                     ))}
                   </Stack>
                 </Box>
+                {/* WEIGHT AND HEIGHT */}
                 <Box>
                   <Typography variant="h6">Weight & Height:</Typography>
                   <Stack gap="12px" width="100%" alignItems="center">
@@ -237,7 +244,8 @@ export const Pokedex = () => {
                       sx={{
                         display: "flex",
                         alignItems: "center",
-                        gap: "12px",
+                        justifyContent: "center",
+                        gap: "8px",
                       }}
                     >
                       <FitnessCenterIcon />
@@ -249,7 +257,8 @@ export const Pokedex = () => {
                       sx={{
                         display: "flex",
                         alignItems: "center",
-                        gap: "12px",
+                        justifyContent: "center",
+                        gap: "8px",
                       }}
                     >
                       <HeightIcon />
@@ -259,7 +268,7 @@ export const Pokedex = () => {
                     </Card>
                   </Stack>
                 </Box>
-
+                {/* STATS */}
                 <Box>
                   <Typography variant="h6">Stats:</Typography>
                   <Stack gap="12px" width="100%" alignItems="center">
