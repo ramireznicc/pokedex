@@ -22,11 +22,14 @@ export const usePokedex = () => {
 
   const [error, setError] = useState(false);
 
+  const [showData, setShowData] = useState(false);
+
+  const handleShowData = () => {
+    setShowData(!showData);
+  };
+
   const checkShiny = () => {
     let image;
-    let text;
-    let icon;
-    let iconColor;
     let textColor;
 
     if (shiny) {
@@ -37,7 +40,7 @@ export const usePokedex = () => {
       textColor = "text.primary";
     }
 
-    return { image, text, icon, iconColor, textColor };
+    return { image, textColor };
   };
 
   const URL = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
@@ -88,10 +91,13 @@ export const usePokedex = () => {
     setPokemon,
     pokemonData,
     handleShiny,
+    setShiny,
     shiny,
     checkShiny,
     error,
     handlePrevious,
     handleNext,
+    showData,
+    handleShowData,
   };
 };

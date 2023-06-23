@@ -1,5 +1,8 @@
+// *REACT IMPORTS
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+// *MATERIAL UI IMPORTS
 import { CssBaseline, ThemeProvider } from "@mui/material";
+// *CUSTOM COMPONENTS IMPORTS
 import { Home } from "./components/Home/Home";
 import { Pokedex } from "./components/Pokedex/Pokedex";
 import { Theme } from "./context/Theme/Theme";

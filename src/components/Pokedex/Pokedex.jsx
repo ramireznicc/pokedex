@@ -1,3 +1,7 @@
+// *REACT IMPORTS
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+// *MATERIAL UI COMPONENTS IMPORTS
 import {
   Typography,
   Box,
@@ -8,20 +12,24 @@ import {
   LinearProgress,
   Container,
   Divider,
+  Tooltip,
+  CircularProgress,
 } from "@mui/material";
+//*ICONS IMPORT
+import {
+  ArrowBack,
+  Search,
+  Star,
+  NavigateBefore,
+  NavigateNext,
+  KeyboardArrowUp,
+  KeyboardArrowDown,
+  FitnessCenter,
+  Height,
+} from "@mui/icons-material";
+// *CUSTOM COMPONENTS IMPORTS
 import { Card } from "../Card/Card";
-import { useContext, useState } from "react";
 import PokeContext from "../../context/PokeContext/PokeContext";
-import { Link } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import ReplyIcon from "@mui/icons-material/Reply";
-import HeightIcon from "@mui/icons-material/Height";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import StarIcon from "@mui/icons-material/Star";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 export const Pokedex = () => {
   const {
@@ -29,19 +37,16 @@ export const Pokedex = () => {
     error,
     pokemonData,
     checkShiny,
+    setShiny,
     shiny,
     handleShiny,
     handlePrevious,
     handleNext,
+    showData,
+    handleShowData,
   } = useContext(PokeContext);
 
-  const [showData, setShowdata] = useState(false);
-
   const { image, textColor } = checkShiny();
-
-  const handlePokemonData = () => {
-    setShowdata(!showData);
-  };
 
   const checkJustify = () => {
     if (loading || error) {
@@ -69,20 +74,17 @@ export const Pokedex = () => {
         <CircularProgress color="secondary" />
       ) : error ? (
         // ERROR
-        <Stack gap="16px">
-          <Button
-            size="small"
-            startIcon={<ReplyIcon />}
-            disableElevation
-            sx={{ borderRadius: "12px" }}
-            variant="contained"
-            LinkComponent={Link}
-            to="/"
-            color="secondary"
-            fullWidth={false}
-          >
-            Search another pokemon
-          </Button>
+        <Stack gap="16px" alignItems="center">
+          <Tooltip title="Search another Pokemon" sx={{ fontSize: "1rem" }}>
+            <IconButton
+              onClick={() => setShiny(false)}
+              LinkComponent={Link}
+              to="/"
+              color="primary"
+            >
+              <ArrowBack />
+            </IconButton>
+          </Tooltip>
           <Typography variant="h3">Pokemon not found</Typography>
         </Stack>
       ) : (
@@ -93,21 +95,18 @@ export const Pokedex = () => {
               display: "flex",
               justifyContent: "space-between",
               width: "100%",
-              py: "16px",
             }}
           >
-            <Button
-              size="small"
-              startIcon={<ReplyIcon />}
-              disableElevation
-              sx={{ borderRadius: "12px", alignSelf: "flex-start" }}
-              variant="contained"
-              LinkComponent={Link}
-              to="/"
-              color="secondary"
-            >
-              Search another pokemon
-            </Button>
+            <Tooltip title="Search another Pokemon" sx={{ fontSize: "1rem" }}>
+              <IconButton
+                onClick={() => setShiny(false)}
+                LinkComponent={Link}
+                to="/"
+                color="primary"
+              >
+                <Search />
+              </IconButton>
+            </Tooltip>
             <Stack direction="row" alignItems="center">
               <Switch
                 color="secondary"
@@ -115,10 +114,7 @@ export const Pokedex = () => {
                 checked={shiny}
                 onChange={handleShiny}
               />
-              <StarIcon
-                fontSize="small"
-                color={shiny ? "secondary" : "disabled"}
-              />
+              <Star fontSize="small" color={shiny ? "secondary" : "disabled"} />
             </Stack>
           </Box>
           <Divider
@@ -160,7 +156,7 @@ export const Pokedex = () => {
             width="100%"
           >
             <IconButton color="primary" onClick={handlePrevious}>
-              <NavigateBeforeIcon fontSize="large" />
+              <NavigateBefore fontSize="large" />
             </IconButton>
             <Box
               sx={{
@@ -171,22 +167,22 @@ export const Pokedex = () => {
               src={image}
             ></Box>
             <IconButton color="primary" onClick={handleNext}>
-              <NavigateNextIcon fontSize="large" />
+              <NavigateNext fontSize="large" />
             </IconButton>
           </Stack>
           <Divider variant="fullWidth" flexItem={true}>
             <Button
               startIcon={
                 showData ? (
-                  <KeyboardArrowUpIcon fontSize="small" />
+                  <KeyboardArrowUp fontSize="small" />
                 ) : (
-                  <KeyboardArrowDownIcon fontSize="small" />
+                  <KeyboardArrowDown fontSize="small" />
                 )
               }
               sx={{ borderRadius: "12px" }}
               variant="text"
               color={showData ? "secondary" : "primary"}
-              onClick={handlePokemonData}
+              onClick={handleShowData}
             >
               Info
             </Button>
@@ -242,7 +238,7 @@ export const Pokedex = () => {
                       gap: "8px",
                     }}
                   >
-                    <FitnessCenterIcon />
+                    <FitnessCenter />
                     <Typography variant="h6">
                       {pokemonData.weight} kg
                     </Typography>
@@ -255,7 +251,7 @@ export const Pokedex = () => {
                       gap: "8px",
                     }}
                   >
-                    <HeightIcon />
+                    <Height />
                     <Typography variant="h6">
                       {pokemonData.height} mts
                     </Typography>

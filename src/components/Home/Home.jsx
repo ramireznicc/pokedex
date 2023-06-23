@@ -1,3 +1,7 @@
+// *REACT IMPORTS
+import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+// *MATERIAL UI IMPORTS
 import {
   TextField,
   Typography,
@@ -5,9 +9,9 @@ import {
   IconButton,
   Container,
 } from "@mui/material";
+// *ICONS IMPORTS
 import { Search } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+// *CUSTOM COMPONENTS IMPORTS
 import PokeContext from "../../context/PokeContext/PokeContext";
 
 export const Home = () => {
@@ -20,13 +24,16 @@ export const Home = () => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter" && toSearch !== "") {
+    if (e.key === "Enter") {
       handleOnClick();
     }
   };
 
   const handleOnClick = () => {
-    setPokemon(toSearch);
+    if (toSearch === "") return;
+    toSearch.startsWith("0")
+      ? setPokemon(toSearch.slice(1))
+      : setPokemon(toSearch);
     navigate("/pokedex");
   };
 
